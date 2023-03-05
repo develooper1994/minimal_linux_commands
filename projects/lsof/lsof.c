@@ -68,11 +68,24 @@ int main(int argc, char* argv[]){
         dir = opendir("/proc");
         if(dir != NULL){
             while((entry = readdir(dir)) != NULL){
-                if(entry->d_type == DT_DIR && entry->d_name){
-                    
+                if(entry->d_type == DT_DIR && entry->d_name[0] >= '0' && entry->d_name[0] <= '9'){
+                    pid = atoi(entry->d_name);
+                    snprintf(path, sizeof(path), "/proc/%d/cmdline", pid);
+                    fd=open(path, O_RDONLY);
+                    if(fd != -1){
+                        char cmdline[1024];
+                        ssize_t len = read(fd, cmdline, sizeof(cmdline) - 1);
+                        if(len > 0){
+                            cmdline[len = '\0'];
+                            if(strcmp(cmdline, command) == 0){
+                                printf("%5d %s\n", pid, cmdline);
+                            }
+                        }
+                        close(fd); // close if fd is opened
+                    }
                 }
             }
-            closedir(dir);
+            closedir(dir);  // close if fd is opened
         }
     }
     else{
