@@ -76,7 +76,7 @@ int main(int argc, char* argv[]){
                         char cmdline[1024];
                         ssize_t len = read(fd, cmdline, sizeof(cmdline) - 1);
                         if(len > 0){
-                            cmdline[len = '\0'];
+                            cmdline[len] = '\0';
                             if(strcmp(cmdline, command) == 0){
                                 printf("%5d %s\n", pid, cmdline);
                             }
