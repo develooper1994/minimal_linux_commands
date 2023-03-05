@@ -13,3 +13,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
+# lsof
+
+#### ENG:
+
+lsof command is a bit different than other commands
+
+### TR:
