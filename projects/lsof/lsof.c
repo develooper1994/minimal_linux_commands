@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
+// standart c headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// posix headers
 #include <unistd.h>
 #include <fcntl.h>
 #include <dirent.h>
@@ -39,19 +41,35 @@ int main(int argc, char* argv[]){
                 pid = atoi(optarg);
                 break;
             case 'c':
-                command = atoi(optarg);
+                command = optarg;
                 break;
             default:
                 fprintf(stderr, "Usage: %s [-p PID] [-c command]\n", argv[0]);
                 return EXIT_FAILURE;
         }
     }
-
+    // IF a PID was specified, list open files for that process
     if(pid != -1){
-
+        snprintf(path, sizeof(path), "/proc/%d/fd", pid);
+        dir=opendir(path);
+        if(dir != NULL){
+            while((entry = readdir(dir)) != NULL){
+                if (entry->d_name[0] != '.'){
+                    fd = atoi(entry->d_name);
+                    printf("%5d %s\n", fd, entry->d_name);
+                }
+                
+            }
+        }
+        closedir(dir);
     }
+    // If a command was specified, list open files for processes with that command
     else if(command != NULL){
+        dir = opendir("/proc");
+        if(dir != NULL){
 
+        }
+        closedir(dir);
     }
     else{
 
