@@ -17,12 +17,15 @@ add_subdirectory(lsof)
 # Define Install Targets
 # ##############################################################################
 # projects
+
+#[[
 install(
   TARGETS utils lsof
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   PUBLIC_HEADER DESTINATION include)
+]]
 
 # source files. especially headers to help library compile
 #[[

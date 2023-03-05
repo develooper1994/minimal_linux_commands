@@ -2,11 +2,8 @@
 #
 # Main CMakeLists.txt
 
-# [[
-    thanks to:
-    https://github.com/madduci/moderncpp-project-template
+# thanks to: https://github.com/madduci/moderncpp-project-template
 
-]]
 cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 # project
@@ -30,9 +27,7 @@ set(CMAKE_PROJECT_VERSION
     ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH}
 )
 
-# properties
-# c/c++ properties
-# I will changeit if i have to in feature
+# properties c/c++ properties I will changeit if i have to in feature
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 # this version is mandatory
@@ -52,13 +47,13 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})
 set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 
-#####################################
+# ##############################################################################
 # Define Options
-#####################################
+# ##############################################################################
 option(BUILD_TESTING "Build tests" FALSE)
 option(BUILD_SHARED_LIBS "Build shared libraries" FALSE)
-# I am not going to use msvc.
-# option(BUILD_WITH_MT "Build libraries as MultiThreaded DLL (Windows Only)" FALSE) # msvc
+# I am not going to use msvc. option(BUILD_WITH_MT "Build libraries as
+# MultiThreaded DLL (Windows Only)" FALSE) # msvc
 
 # paths
 # ##############################################################################
@@ -74,8 +69,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/dependencies.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/cpack.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/options.cmake)
 
-
 # ##############################################################################
 # Define Targets
 # ##############################################################################
-add_subdirectory(project)
+add_subdirectory(projects)
