@@ -88,8 +88,29 @@ int main(int argc, char* argv[]){
             closedir(dir);  // close if fd is opened
         }
     }
+    // Otherwise, list open files for all processes
     else{
-
+        dir = opendir("/proc");
+        if(dir != NULL){
+            while((entry = readdir(dir)) != NULL){
+                if(entry->d_type == DT_DIR && entry->d_name[0] >= '0' && entry->d_name[0]<='9'){
+                    pid = atoi(entry->d_name);
+                    snprintf(path, sizeof(path), "/proc/%d/fd", pid);
+                    DIR* fd_dir = opendir(path);
+                    if(fd_dir != NULL){
+                        struct dirent* fd_entry;
+                        while((fd_entry = readdir(fd_dir)) != NULL){
+                            if(fd_entry->d_name[0] != '.'){
+                                fd = atoi(fd_entry->d_name);
+                                printf("%5d %5d %s\n", pid, fd, fd_entry->d_name);
+                            }
+                        }
+                        closedir(fd_dir);
+                    }
+                }
+            }
+            closedir(dir);
+        }
     }
 
     return EXIT_SUCCESS;

@@ -72,7 +72,7 @@ _deps
 
 
 # vscode
-.vscode/*
+#.vscode/*
 .vscode-ctags
 !.vscode/settings.json
 !.vscode/tasks.json
