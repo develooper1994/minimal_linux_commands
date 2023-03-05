@@ -48,6 +48,7 @@ int main(int argc, char* argv[]){
                 return EXIT_FAILURE;
         }
     }
+
     // IF a PID was specified, list open files for that process
     if(pid != -1){
         snprintf(path, sizeof(path), "/proc/%d/fd", pid);
@@ -58,18 +59,21 @@ int main(int argc, char* argv[]){
                     fd = atoi(entry->d_name);
                     printf("%5d %s\n", fd, entry->d_name);
                 }
-                
             }
+            closedir(dir);
         }
-        closedir(dir);
     }
     // If a command was specified, list open files for processes with that command
     else if(command != NULL){
         dir = opendir("/proc");
         if(dir != NULL){
-
+            while((entry = readdir(dir)) != NULL){
+                if(entry->d_type == DT_DIR && entry->d_name){
+                    
+                }
+            }
+            closedir(dir);
         }
-        closedir(dir);
     }
     else{
 
